@@ -27,7 +27,7 @@ class Section extends Component {
         } else {
             this.setState({ isLoading: true }, () => {
                 const files = List_files(this.state.isSelected);
-                //console.log(files);
+                console.log(files);
             })
         }
     }

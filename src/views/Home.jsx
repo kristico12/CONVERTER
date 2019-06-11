@@ -6,7 +6,6 @@ import TopBar from '../components/TopBar.jsx';
 import Section from '../components/Section.jsx';
 
 function Home() {
-    console.log(window.location.search)
     return (
         <Fragment>
             <div className="container">

@@ -11,7 +11,7 @@ function Loading(props) {
             </div>
             <style jsx>{`
                 .loader {
-                    width: 30px;
+                    width: ${props.size}px;
                 }
                 .loader:before {
                     content: '';
@@ -28,7 +28,7 @@ function Loading(props) {
                 .path {
                     stroke-dasharray: 1, 200;
                     stroke-dashoffset: 0;
-                    animation: dash 1s ease-in-out infinite, color 6s ease-in-out infinite;
+                    animation: dash 1s ease-in-out infinite, color 1s ease-in-out infinite;
                     stroke-linecap: round;
                 }                  
                 @keyframes rotate {
@@ -38,16 +38,13 @@ function Loading(props) {
                 }
                 @keyframes dash {
                     0% {
-                        stroke-dasharray: 1, 200;
-                        stroke-dashoffset: 0;
+                        stroke-dasharray: 30, 200;
                     }
                     50% {
                         stroke-dasharray: 89, 200;
-                        stroke-dashoffset: -25px;
                     }
                     100% {
                         stroke-dasharray: 89, 200;
-                        stroke-dashoffset: -124px;
                     }
                 }
                 @keyframes color {
@@ -64,6 +61,10 @@ function Loading(props) {
             `}</style>
         </Fragment>
     );
+}
+
+Loading.defaultProps = {
+    size: 30
 }
 
 export default Loading;

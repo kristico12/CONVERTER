@@ -1,7 +1,10 @@
 // globals routes
 const path = require('path');
 
-const xmlBanco = path.join("", "/Documents/XmlToXsl/Xml/CONSUMO_BANCO");
+//utils
+import query from './get_query';
+
+const xmlBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Xml/CONSUMO_BANCO");
 
 export {
     xmlBanco,
