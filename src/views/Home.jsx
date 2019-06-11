@@ -1,13 +1,24 @@
 // dependencies
 import React, { Fragment } from 'react';
 
-function Home(props) {
+//components
+import TopBar from '../components/TopBar.jsx';
+import Section from '../components/Section.jsx';
+
+function Home() {
+    console.log(window.location.search)
     return (
         <Fragment>
-            <h1>Hola mundo</h1>
+            <div className="container">
+                <TopBar />
+                <Section />
+            </div>
             <style jsx>{`
-                h1 {
-                    color: red;
+                .container {
+                    overflow-y: hidden;
+                    display: grid;
+                    grid-template-rows: 63.52px 500px;
+                    background-color: #e6ecf0;       
                 }
             `}</style>
         </Fragment>
@@ -15,15 +26,3 @@ function Home(props) {
 }
 
 export default Home;
-/*
-const ALL_TYPES_XML = {
-    SUFI_CONSUMO: 'SUFI CONSUMO',
-    SUFI_VEHICULOS: 'SUFI VEHICULOS',
-    BANCO_INMOBILIARIO: 'BANCO INMOBILIARIO',
-    BANCO_HIPOTECARIO: 'BANCO HIPOTECARIO'
-}
-
-export {
-    ALL_TYPES_XML
-}
-*/

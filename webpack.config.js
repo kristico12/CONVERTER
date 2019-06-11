@@ -11,6 +11,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
+
         ]
     },// permite la recarga en caliente
     watch: true,

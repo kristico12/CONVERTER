@@ -1,5 +1,7 @@
 // Dependencies
 const electron = require('electron');
+const path = require('path');
+const os = require('os');
 
 // imports
 const { browserWindows } = require('./config.js');
@@ -15,7 +17,7 @@ app.on('ready', () => {
     // created new windows
     let window = new BrowserWindow(browserWindows);
     // charge windows file html
-    window.loadFile('./public/index.html');
+    window.loadURL(`file://${__dirname}/public/index.html?home=${os.homedir()}`);
     // Emitido cuando la ventana es cerrada.
     window.on('closed', () => {
         // Elimina la referencia al objeto window, normalmente  guardarías las ventanas
@@ -27,6 +29,10 @@ app.on('ready', () => {
     window.setMenu(null);
     // se lanza el devptools de desarrollo
     window.webContents.openDevTools();
+    // charget react devtools
+    BrowserWindow.addDevToolsExtension(
+        path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.6.0_0')
+    )
 })
 
 // Sal cuando todas las ventanas hayan sido cerradas.
