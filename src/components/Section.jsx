@@ -17,6 +17,13 @@ class Section extends Component {
             infoFiles: [],
         }
     }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.isSelected !== prevState.isSelected) {
+            this.setState({
+                infoFiles: []
+            })
+        }
+    }
     search() {
         if (this.state.isSelected.length === 0) {
             this.setState({
@@ -26,8 +33,11 @@ class Section extends Component {
             })
         } else {
             this.setState({ isLoading: true }, () => {
-                const files = List_files(this.state.isSelected);
-                console.log(files);
+                const files = List_files(this.state.isSelected).filter((name) => !name.includes("read"));
+                this.setState({
+                    infoFiles: files,
+                    isLoading: false
+                })
             })
         }
     }
@@ -41,9 +51,12 @@ class Section extends Component {
                         handleSelect={(value) => this.setState({ isSelected: value })}
                         isSelected={this.state.isSelected}
                     />
-                    <ShowTable
-                        infoFiles={this.state.infoFiles}
-                    />
+                    {
+                        this.state.infoFiles.length > 0 &&
+                        <ShowTable
+                            infoFiles={this.state.infoFiles}
+                        />
+                    }
                 </section>
                 <style jsx>{`
                     .section-container {
