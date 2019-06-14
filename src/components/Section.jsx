@@ -1,6 +1,7 @@
 // dependencies
 import React, { Fragment, Component } from 'react';
 const fs = window.require('fs');
+import convertObject from 'xml-js';
 
 // components
 import SelectXml from './SelectXml.jsx';
@@ -9,6 +10,8 @@ import GenerateXml from './GenerateXml.jsx';
 
 //utils
 import { List_files } from '../utils/list-files';
+import { Generate_Data } from '../utils/utils';
+import { ATTRIBUTES_BANCO_CONSUMO } from '../utils/globals_variables';
 
 class Section extends Component {
     constructor(props) {
@@ -29,6 +32,15 @@ class Section extends Component {
         }
         if (this.state.allStringXml !== prevState.allStringXml) {
             if (this.state.allStringXml.length === this.state.infoFiles.length) {
+                const arrayDict = this.state.allStringXml.map(item => (
+                    JSON.parse(convertObject.xml2json(item, { compact: true, spaces: 4 }))
+                ));
+                let nameModelread;
+                if (this.state.isSelected.includes('CONSUMO_BANCO')) {
+                    nameModelread = ATTRIBUTES_BANCO_CONSUMO;
+                }
+                // generate data
+                Generate_Data(nameModelread, arrayDict);
                 this.setState({ isLoadingTow: false });
             }
         }
