@@ -1,5 +1,6 @@
 // dependencies
 import React, { Fragment, Component } from 'react';
+const fs = window.require('fs');
 
 // components
 import SelectXml from './SelectXml.jsx';
@@ -17,6 +18,7 @@ class Section extends Component {
             isSelected: "",
             infoFiles: [],
             isLoadingTow: false,
+            allStringXml: []
         }
     }
     componentDidUpdate(prevProps, prevState) {
@@ -24,6 +26,11 @@ class Section extends Component {
             this.setState({
                 infoFiles: []
             });
+        }
+        if (this.state.allStringXml !== prevState.allStringXml) {
+            if (this.state.allStringXml.length === this.state.infoFiles.length) {
+                this.setState({ isLoadingTow: false });
+            }
         }
     }
     search() {
@@ -48,7 +55,25 @@ class Section extends Component {
         }
     }
     generateXsl() {
-
+        this.setState({
+            isLoadingTow: true
+        }, () => {
+            for (const i in this.state.infoFiles) {
+                try {
+                    fs.readFile(`${this.state.isSelected}/${this.state.infoFiles[i]}`, { encoding: 'utf-8' }, (err, data) => {
+                        const alltemp = this.state.allStringXml.slice();
+                        alltemp.push(data);
+                        this.setState({
+                            allStringXml: alltemp
+                        })
+                    });
+                } catch (error) {
+                    alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
+                    this.setState({ isLoadingTow: false });
+                    break;
+                }
+            }
+        })
     }
     render() {
         return (
