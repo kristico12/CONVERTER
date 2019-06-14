@@ -49,13 +49,13 @@ function Loading(props) {
                 }
                 @keyframes color {
                     0% {
-                        stroke: blue;
+                        stroke: #00448C;
                     }
                     50% {
-                        stroke: blue;
+                        stroke: #00448C;
                     }
                     100% {
-                        stroke: blue;
+                        stroke: #00448C;
                     }
                 }             
             `}</style>

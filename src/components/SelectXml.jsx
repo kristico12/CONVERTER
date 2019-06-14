@@ -83,11 +83,8 @@ function SelectXmls(props) {
                     background-position: right .7em top 50%, 0 0;
                     background-size: .65em auto, 50%;
                 }
-                .select-css::-ms-expand {
-                    display: none;
-                }
                 .select-css:hover {
-                    border-color: #888;
+                    border-color: #00448C;
                 }
                 .select-css:focus {
                     border-color: #aaa;
@@ -118,7 +115,7 @@ function SelectXmls(props) {
                 }
                 
                 .button-search:hover {
-                    background-color: blue;
+                    background-color: #00448C;
                     text-decoration: none;
                     color: white;
                 }
