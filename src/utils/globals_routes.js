@@ -10,9 +10,11 @@ const xslBanco = path.join(query(window.location.search).home, "/Documents/XmlTo
 //consumo banco
 const xmlBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Xml/CONSUMO_BANCO");
 const modelBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
+const structureBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
 
 export {
     xmlBanco,
     xslBanco,
-    modelBanco
+    modelBanco,
+    structureBanco
 }

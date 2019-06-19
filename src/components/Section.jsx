@@ -11,7 +11,7 @@ import GenerateXml from './GenerateXml.jsx';
 //utils
 import { List_files } from '../utils/list-files';
 import { Generate_Data } from '../utils/utils';
-import { ATTRIBUTES_BANCO_CONSUMO } from '../utils/globals_variables';
+import { ATTRIBUTES_BANCO_CONSUMO, STRUCTURE_BANCO_CONSUMO } from '../utils/globals_variables';
 
 class Section extends Component {
     constructor(props) {
@@ -35,12 +35,13 @@ class Section extends Component {
                 const arrayDict = this.state.allStringXml.map(item => (
                     JSON.parse(convertObject.xml2json(item, { compact: true, spaces: 4 }))
                 ));
-                let nameModelread;
+                let nameModelread, structureModel;
                 if (this.state.isSelected.includes('CONSUMO_BANCO')) {
                     nameModelread = ATTRIBUTES_BANCO_CONSUMO;
+                    structureModel = STRUCTURE_BANCO_CONSUMO;
                 }
                 // generate data
-                Generate_Data(nameModelread, arrayDict);
+                Generate_Data(nameModelread, arrayDict, structureModel);
                 this.setState({ isLoadingTow: false });
             }
         }
