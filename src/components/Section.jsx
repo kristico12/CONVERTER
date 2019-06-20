@@ -83,8 +83,8 @@ class Section extends Component {
                         alltemp.push(data);
                         this.setState({
                             allStringXml: alltemp,
-                            isLoadingTow: false,
                         })
+
                     });
                 } catch (error) {
                     alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
