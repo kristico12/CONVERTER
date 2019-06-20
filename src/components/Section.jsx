@@ -27,11 +27,13 @@ class Section extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.state.isSelected !== prevState.isSelected) {
             this.setState({
-                infoFiles: []
+                infoFiles: [],
+                isLoadingTow: false,
+                allStringXml: []
             });
         }
         if (this.state.allStringXml !== prevState.allStringXml) {
-            if (this.state.allStringXml.length === this.state.infoFiles.length) {
+            if (this.state.allStringXml.length === this.state.infoFiles.length && this.state.infoFiles.length !== 0) {
                 const arrayDict = this.state.allStringXml.map(item => (
                     JSON.parse(convertObject.xml2json(item, { compact: true, spaces: 4 }))
                 ));
@@ -63,6 +65,9 @@ class Section extends Component {
                     })
                 } catch (error) {
                     alert("A ocurrido un error, por favor intente de nuevo!" + error);
+                    this.setState({
+                        isLoading: false
+                    })
                 }
             })
         }
@@ -77,13 +82,13 @@ class Section extends Component {
                         const alltemp = this.state.allStringXml.slice();
                         alltemp.push(data);
                         this.setState({
-                            allStringXml: alltemp
+                            allStringXml: alltemp,
+                            isLoadingTow: false,
                         })
                     });
                 } catch (error) {
                     alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
                     this.setState({ isLoadingTow: false });
-                    break;
                 }
             }
         })
