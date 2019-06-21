@@ -37,14 +37,19 @@ class Section extends Component {
                 const arrayDict = this.state.allStringXml.map(item => (
                     JSON.parse(convertObject.xml2json(item, { compact: true, spaces: 4 }))
                 ));
-                let nameModelread, structureModel;
+                let nameModelread, structureModel, titlefile;
                 if (this.state.isSelected.includes('CONSUMO_BANCO')) {
                     nameModelread = ATTRIBUTES_BANCO_CONSUMO;
                     structureModel = STRUCTURE_BANCO_CONSUMO;
+                    titlefile = 'CONSUMO_BANCO';
                 }
                 // generate data
-                Generate_Data(nameModelread, arrayDict, structureModel);
+                Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
                 this.setState({ isLoadingTow: false });
+            } else if (this.state.isLoadingTow) {
+                this.setState({
+                    isLoadingTow: false,
+                })
             }
         }
     }

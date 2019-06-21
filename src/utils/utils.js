@@ -1,8 +1,15 @@
-function Generate_Excel(array_data) {
+// dependencies
+import xlxs from 'xlsx';
+// routes
+import { xsl } from './globals_routes';
+function Generate_Excel(array_data, title) {
+    const workbook = xlxs.readFile(`${xsl}/${title}`);
+    
+    const sheetep = workbook.SheetNames;
     console.log(array_data);
 }
 
-function Generate_Array_Xls(model, data) {
+function Generate_Array_Xls(model, data, title) {
     const key_variable = Object.keys(model);
     data.forEach(item => {
         const array_info_excel = [];
@@ -31,10 +38,10 @@ function Generate_Array_Xls(model, data) {
                 console.log(e);
             }
         })
-        Generate_Excel(array_info_excel);
+        Generate_Excel(array_info_excel, title);
     })
 }
-function Generate_Data(model, data, structure) {
+function Generate_Data(model, data, structure, title) {
     // tomamos los keys de entrada de la estructura
     const object_structure = Object.keys(structure);
     // data array files
@@ -53,7 +60,7 @@ function Generate_Data(model, data, structure) {
         })
         array_data.push(dataLevel);
     });
-    Generate_Array_Xls(model, array_data);
+    Generate_Array_Xls(model, array_data, title);
 }
 
 export {

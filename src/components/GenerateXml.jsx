@@ -9,10 +9,14 @@ function GenerateXml(props) {
         <Fragment>
             <div className="container">
                 <div className="container-buttton">
-                    <button className="button-search" onClick={() => props.generateXsl()}>Buscar</button>
-                    {
-                        props.isLoading && <Loading />
-                    }
+                    <div className="container-flex">
+                        <button className="button-search" onClick={() => props.generateXsl()}>Generar Excel</button>
+                    </div>
+                    <div className="container-flex">
+                        {
+                            props.isLoading && <Loading size={45} />
+                        }
+                    </div>
                 </div>
             </div>
             <style jsx>{`
@@ -21,8 +25,12 @@ function GenerateXml(props) {
                     grid-template-columns: 395px 395px;
                 }
                 .container-buttton {
+                    display: grid;
+                    grid-template-columns: 198px 197px;                    
+                }
+                .container-flex {
                     display: flex;
-                    justify-content: space-around;
+                    justify-content: center;
                     align-items: center;
                 }
                 .button-search {

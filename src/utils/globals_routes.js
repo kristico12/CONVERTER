@@ -5,7 +5,7 @@ const path = require('path');
 import query from './get_query';
 
 //Xsl
-const xslBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Excel");
+const xsl = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Excel");
 
 //consumo banco
 const xmlBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Xml/CONSUMO_BANCO");
@@ -14,7 +14,7 @@ const structureBanco = path.join(query(window.location.search).home, "/Documents
 
 export {
     xmlBanco,
-    xslBanco,
+    xsl,
     modelBanco,
     structureBanco
 }
