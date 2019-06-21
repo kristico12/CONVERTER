@@ -1,3 +1,7 @@
+function Generate_Excel(array_data) {
+    console.log(array_data);
+}
+
 function Generate_Array_Xls(model, data) {
     const key_variable = Object.keys(model);
     data.forEach(item => {
@@ -13,23 +17,22 @@ function Generate_Array_Xls(model, data) {
                     list_variables_model.forEach(variable_model => {
                         array_info_excel.push({ title: variable_model, value: getData[variable_model] })
                     })
-                    //console.log(list_variables_model);
-                    //console.log(getData);
                 } else {
                     const key_getData = Object.keys(info);
+                    const list_variables_model = Object.keys(model[key]);
                     key_getData.forEach(val => {
                         getData = Object.assign({}, info[val]._attributes);
-                        //console.log(getData);
+                        list_variables_model.forEach(variable_model => {
+                            array_info_excel.push({ title: variable_model, value: getData[variable_model] })
+                        })
                     })
                 }
             } catch (e) {
                 console.log(e);
             }
         })
-        //console.log(typeof item);
-        console.log(array_info_excel);
+        Generate_Excel(array_info_excel);
     })
-    //console.log(data);
 }
 function Generate_Data(model, data, structure) {
     // tomamos los keys de entrada de la estructura
