@@ -1,11 +1,10 @@
 // dependencies
-import xlxs from 'xlsx';
+
 // routes
 import { xsl } from './globals_routes';
+
 function Generate_Excel(array_data, title) {
-    const workbook = xlxs.readFile(`${xsl}/${title}`);
-    
-    const sheetep = workbook.SheetNames;
+    //const workbook = xlxs.readFile(`${xsl}/${title}.xsl`);
     console.log(array_data);
 }
 
