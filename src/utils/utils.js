@@ -1,11 +1,35 @@
 // dependencies
+import XLSX from 'xlsx';
+const fs = window.require('fs');
 
 // routes
 import { xsl } from './globals_routes';
 
 function Generate_Excel(array_data, title) {
-    //const workbook = xlxs.readFile(`${xsl}/${title}.xsl`);
+    const routeName = `${xsl}/${title}.xsl`;
+    const isExist = () => {
+        try {
+            return fs.statSync(routeName).isFile();
+        } catch (e) {
+            return false;
+        }
+    }
+    if (isExist()) {
+        // se edita
+    } else {
+        // se crea y se inserta
+        const wb = XLSX.utils.book_new();
+        wb.Props = {
+            Title: title,
+            Company: "Bancolombia",
+        }
+        wb.SheetNames.push("Bancolombia");
+        const ws = XLSX.utils.json_to_sheet(array_data);
+        wb.Sheets["Bancolombia"] = ws;
+    }
     console.log(array_data);
+    //const workbook = XLSX.read(routeName);
+    //console.log(workbook);
 }
 
 function Generate_Array_Xls(model, data, title) {
