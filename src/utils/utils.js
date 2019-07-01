@@ -2,11 +2,13 @@
 import XLSX from 'xlsx';
 const fs = window.require('fs');
 
+
 // routes
 import { xsl } from './globals_routes';
 
+
 function Generate_Excel(array_data, title) {
-    const routeName = `${xsl}/${title}.xsl`;
+    const routeName = `${xsl}/${title}.xlsx`;
     const isExist = () => {
         try {
             return fs.statSync(routeName).isFile();
@@ -15,21 +17,34 @@ function Generate_Excel(array_data, title) {
         }
     }
     if (isExist()) {
-        // se edita
+        // se lee el archivo
+        const file = fs.readFileSync(routeName);
+        const wb = XLSX.read(file, { type: "buffer" });
+        const sh = wb.Sheets[wb.SheetNames[0]];
+        // obtenemos el rango
+        const range = XLSX.utils.decode_range(sh["!ref"]);
+        const ultimate_column = Object.assign({}, range).e.c + 2;
+        // procederemos a insertar nuevos valores
+        const ws = XLSX.utils.sheet_add_json(sh, array_data, { skipHeader: true, origin: { r: 0, c: ultimate_column } });
+        wb.Sheets[wb.SheetNames[0]] = ws;
+        const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        // se guarda el archivo
+        fs.writeFileSync(routeName, new Buffer(wOut));
     } else {
-        // se crea y se inserta
+        // se crea el archivo
         const wb = XLSX.utils.book_new();
         wb.Props = {
             Title: title,
             Company: "Bancolombia",
         }
         wb.SheetNames.push("Bancolombia");
-        const ws = XLSX.utils.json_to_sheet(array_data);
+        // se inserta en el archivo creado
+        const ws = XLSX.utils.json_to_sheet(array_data, { skipHeader: true });
         wb.Sheets["Bancolombia"] = ws;
+        const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        // se guarda el archivo
+        fs.writeFileSync(routeName, new Buffer(wOut));
     }
-    console.log(array_data);
-    //const workbook = XLSX.read(routeName);
-    //console.log(workbook);
 }
 
 function Generate_Array_Xls(model, data, title) {

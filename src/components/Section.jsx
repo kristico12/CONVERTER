@@ -81,20 +81,24 @@ class Section extends Component {
         this.setState({
             isLoadingTow: true
         }, () => {
-            for (const i in this.state.infoFiles) {
-                try {
-                    fs.readFile(`${this.state.isSelected}/${this.state.infoFiles[i]}`, { encoding: 'utf-8' }, (err, data) => {
-                        const alltemp = this.state.allStringXml.slice();
+            if (this.state.allStringXml.length === 0) {
+                const alltemp = [];
+                for (const i in this.state.infoFiles) {
+                    try {
+                        const data = fs.readFileSync(`${this.state.isSelected}/${this.state.infoFiles[i]}`, { encoding: 'utf-8' });
                         alltemp.push(data);
-                        this.setState({
-                            allStringXml: alltemp,
-                        })
-
-                    });
-                } catch (error) {
-                    alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
-                    this.setState({ isLoadingTow: false });
+                    } catch (error) {
+                        alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
+                        this.setState({ isLoadingTow: false });
+                    }
                 }
+                if (alltemp.length === this.state.infoFiles.length) {
+                    this.setState({
+                        allStringXml: alltemp.slice(),
+                    })
+                }
+            } else {
+                this.setState({ isLoadingTow: this.state.isLoadingTow && false });
             }
         })
     }
