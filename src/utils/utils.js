@@ -8,6 +8,7 @@ import { xsl } from './globals_routes';
 
 
 function Generate_Excel(array_data, title) {
+    let r = true;
     const routeName = `${xsl}/${title}.xlsx`;
     const isExist = () => {
         try {
@@ -17,19 +18,23 @@ function Generate_Excel(array_data, title) {
         }
     }
     if (isExist()) {
-        // se lee el archivo
-        const file = fs.readFileSync(routeName);
-        const wb = XLSX.read(file, { type: "buffer" });
-        const sh = wb.Sheets[wb.SheetNames[0]];
-        // obtenemos el rango
-        const range = XLSX.utils.decode_range(sh["!ref"]);
-        const ultimate_column = Object.assign({}, range).e.c + 2;
-        // procederemos a insertar nuevos valores
-        const ws = XLSX.utils.sheet_add_json(sh, array_data, { skipHeader: true, origin: { r: 0, c: ultimate_column } });
-        wb.Sheets[wb.SheetNames[0]] = ws;
-        const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        // se guarda el archivo
-        fs.writeFileSync(routeName, new Buffer(wOut));
+        try {
+            // se lee el archivo
+            const file = fs.readFileSync(routeName);
+            const wb = XLSX.read(file, { type: "buffer" });
+            const sh = wb.Sheets[wb.SheetNames[0]];
+            // obtenemos el rango
+            const range = XLSX.utils.decode_range(sh["!ref"]);
+            const ultimate_column = Object.assign({}, range).e.c + 2;
+            // procederemos a insertar nuevos valores
+            const ws = XLSX.utils.sheet_add_json(sh, array_data, { skipHeader: true, origin: { r: 0, c: ultimate_column } });
+            wb.Sheets[wb.SheetNames[0]] = ws;
+            const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            // se guarda el archivo
+            fs.writeFileSync(routeName, new Buffer(wOut));
+        } catch (error) {
+            r = false;
+        }
     } else {
         // se crea el archivo
         const wb = XLSX.utils.book_new();
@@ -43,11 +48,17 @@ function Generate_Excel(array_data, title) {
         wb.Sheets["Bancolombia"] = ws;
         const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         // se guarda el archivo
-        fs.writeFileSync(routeName, new Buffer(wOut));
+        try {
+            fs.writeFileSync(routeName, new Buffer(wOut));
+        } catch (e) {
+            r = false;
+        }
     }
+    return r;
 }
 
 function Generate_Array_Xls(model, data, title) {
+    let r = true;
     const key_variable = Object.keys(model);
     data.forEach(item => {
         const array_info_excel = [];
@@ -76,8 +87,12 @@ function Generate_Array_Xls(model, data, title) {
                 console.log(e);
             }
         })
-        Generate_Excel(array_info_excel, title);
+        const result = Generate_Excel(array_info_excel, title);
+        if (!result) {
+            r = false;
+        }
     })
+    return r;
 }
 function Generate_Data(model, data, structure, title) {
     // tomamos los keys de entrada de la estructura
@@ -98,7 +113,7 @@ function Generate_Data(model, data, structure, title) {
         })
         array_data.push(dataLevel);
     });
-    Generate_Array_Xls(model, array_data, title);
+    return Generate_Array_Xls(model, array_data, title);
 }
 
 export {

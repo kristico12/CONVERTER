@@ -44,8 +44,10 @@ class Section extends Component {
                     titlefile = 'CONSUMO_BANCO';
                 }
                 // generate data
-                Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
-                this.setState({ isLoadingTow: false });
+                const isSucesfull = Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
+                if (isSucesfull) {
+                    this.setState({ isLoadingTow: false });
+                }
             } else if (this.state.isLoadingTow) {
                 this.setState({
                     isLoadingTow: false,
