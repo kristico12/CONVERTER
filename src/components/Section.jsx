@@ -33,7 +33,7 @@ class Section extends Component {
             });
         }
         if (this.state.allStringXml !== prevState.allStringXml) {
-            if (this.state.allStringXml.length === this.state.infoFiles.length && this.state.infoFiles.length !== 0) {
+            if (this.state.allStringXml.length !== 0) {
                 const arrayDict = this.state.allStringXml.map(item => (
                     JSON.parse(convertObject.xml2json(item, { compact: true, spaces: 4 }))
                 ));
@@ -45,9 +45,9 @@ class Section extends Component {
                 }
                 // generate data
                 const isSucesfull = Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
-                if (isSucesfull) {
-                    this.setState({ isLoadingTow: false });
-                }
+                window.setTimeout(() => {
+                    if (isSucesfull) { this.setState({ isLoadingTow: false, }); }
+                }, 3000);
             } else if (this.state.isLoadingTow) {
                 this.setState({
                     isLoadingTow: false,
@@ -83,25 +83,22 @@ class Section extends Component {
         this.setState({
             isLoadingTow: true
         }, () => {
-            if (this.state.allStringXml.length === 0) {
-                const alltemp = [];
-                for (const i in this.state.infoFiles) {
-                    try {
-                        const data = fs.readFileSync(`${this.state.isSelected}/${this.state.infoFiles[i]}`, { encoding: 'utf-8' });
-                        alltemp.push(data);
-                    } catch (error) {
-                        alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
-                        this.setState({ isLoadingTow: false });
-                    }
+            const alltemp = [];
+            for (const i in this.state.infoFiles) {
+                try {
+                    const data = fs.readFileSync(`${this.state.isSelected}/${this.state.infoFiles[i]}`, { encoding: 'utf-8' });
+                    alltemp.push(data);
+                } catch (error) {
+                    alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
+                    this.setState({ isLoadingTow: false });
                 }
-                if (alltemp.length === this.state.infoFiles.length) {
-                    this.setState({
-                        allStringXml: alltemp.slice(),
-                    })
-                }
-            } else {
-                this.setState({ isLoadingTow: this.state.isLoadingTow && false });
             }
+            if (alltemp.length === this.state.infoFiles.length && alltemp.length !== 0) {
+                this.setState({
+                    allStringXml: alltemp.slice(),
+                })
+            }
+
         })
     }
     render() {

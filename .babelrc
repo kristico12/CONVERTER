@@ -9,6 +9,7 @@
             {
                 "optimizeForSpeed": true
             }
-        ]
+        ],
+        "@babel/transform-async-to-generator"
     ]
 }
