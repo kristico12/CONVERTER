@@ -63,9 +63,9 @@ function Generate_Array_Xls(model, data, title) {
     data.forEach(item => {
         const array_info_excel = [];
         key_variable.forEach(key => {
-            let info;
-            info = item[key];
             try {
+                let info;
+                info = item[key];
                 let getData;
                 if (info.hasOwnProperty('_attributes')) {
                     getData = Object.assign({}, info._attributes);
@@ -85,10 +85,9 @@ function Generate_Array_Xls(model, data, title) {
                 }
             } catch (e) {
                 console.log(e);
-                console.log(info);
-                console.log(key);
             }
         })
+        // asignacion manual de los reason number, reason text and desicion response
         const result = Generate_Excel(array_info_excel, title);
         if (!result) {
             r = false;
