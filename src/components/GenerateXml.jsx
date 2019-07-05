@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 
 //components
 import Loading from './loading.jsx';
+import AlertSuccess from './AlertSuccess.jsx';
 
 function GenerateXml(props) {
     return (
@@ -18,6 +19,12 @@ function GenerateXml(props) {
                         }
                     </div>
                 </div>
+                {
+                    props.info.show &&
+                    <AlertSuccess
+                        info={props.info}
+                    />
+                }
             </div>
             <style jsx>{`
                 .container {
@@ -53,6 +60,11 @@ function GenerateXml(props) {
             `}</style>
         </Fragment>
     );
+}
+GenerateXml.defaultProps = {
+    info: {
+        show: false
+    }
 }
 
 export default GenerateXml

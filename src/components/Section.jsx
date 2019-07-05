@@ -9,7 +9,7 @@ import ShowTable from './ShowTable.jsx';
 import GenerateXml from './GenerateXml.jsx';
 
 //utils
-import { List_files } from '../utils/list-files';
+import { List_files, Rename_files } from '../utils/list-files';
 import { Generate_Data } from '../utils/utils';
 import { ATTRIBUTES_BANCO_CONSUMO, STRUCTURE_BANCO_CONSUMO } from '../utils/globals_variables';
 
@@ -21,7 +21,8 @@ class Section extends Component {
             isSelected: "",
             infoFiles: [],
             isLoadingTow: false,
-            allStringXml: []
+            allStringXml: [],
+            info: {},
         }
     }
     componentDidUpdate(prevProps, prevState) {
@@ -46,7 +47,53 @@ class Section extends Component {
                 // generate data
                 const isSucesfull = Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
                 window.setTimeout(() => {
-                    if (isSucesfull) { this.setState({ isLoadingTow: false, }); }
+                    if (isSucesfull) {
+                        this.state.infoFiles.slice().forEach((value) => {
+                            Rename_files(
+                                `${this.state.isSelected}/${value}`,
+                                `${this.state.isSelected}/read-${value}`
+                            )
+                        })
+                        this.setState({
+                            isLoadingTow: false,
+                            info: {
+                                show: true,
+                                content: "Excel Exitoso",
+                                type: "success"
+                            }
+                        }, () => {
+                            window.setTimeout(() => {
+                                this.setState({
+                                    isLoading: false,
+                                    isSelected: "",
+                                    infoFiles: [],
+                                    isLoadingTow: false,
+                                    allStringXml: [],
+                                    info: {},
+                                })
+                            }, 3000)
+                        });
+                    } else {
+                        this.setState({
+                            isLoadingTow: false,
+                            info: {
+                                show: true,
+                                content: "A ocurrido un error por favor intente de nuevo",
+                                type: "error"
+                            }
+                        }, () => {
+                            window.setTimeout(() => {
+                                this.setState({
+                                    isLoading: false,
+                                    isSelected: "",
+                                    infoFiles: [],
+                                    isLoadingTow: false,
+                                    allStringXml: [],
+                                    info: {},
+                                })
+                            }, 5000)
+                        });
+                    }
                 }, 3000);
             } else if (this.state.isLoadingTow) {
                 this.setState({
@@ -122,6 +169,7 @@ class Section extends Component {
                         <GenerateXml
                             isLoading={this.state.isLoadingTow}
                             generateXsl={() => this.generateXsl()}
+                            info={this.state.info}
                         />
                     }
                 </section>

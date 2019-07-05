@@ -4,6 +4,12 @@ const fs = window.require('fs');
 function List_files(route) {
     return fs.readdirSync(route);
 }
+//rename files
+function Rename_files(oldpath, newpath) {
+    fs.renameSync(oldpath, newpath);
+}
+
 export {
-    List_files
+    List_files,
+    Rename_files
 }
