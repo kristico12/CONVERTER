@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 
 //components
 import Loading from './loading.jsx';
-import AlertSuccess from './AlertSuccess.jsx';
+import Alert from './Alert.jsx';
 
 function GenerateXml(props) {
     return (
@@ -21,7 +21,7 @@ function GenerateXml(props) {
                 </div>
                 {
                     props.info.show &&
-                    <AlertSuccess
+                    <Alert
                         info={props.info}
                     />
                 }

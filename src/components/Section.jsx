@@ -70,8 +70,8 @@ class Section extends Component {
                                     isLoadingTow: false,
                                     allStringXml: [],
                                     info: {},
-                                })
-                            }, 3000)
+                                });
+                            }, 3000);
                         });
                     } else {
                         this.setState({
@@ -90,15 +90,15 @@ class Section extends Component {
                                     isLoadingTow: false,
                                     allStringXml: [],
                                     info: {},
-                                })
-                            }, 5000)
+                                });
+                            }, 5000);
                         });
                     }
                 }, 3000);
             } else if (this.state.isLoadingTow) {
                 this.setState({
                     isLoadingTow: false,
-                })
+                });
             }
         }
     }
@@ -113,15 +113,21 @@ class Section extends Component {
             this.setState({ isLoading: true }, () => {
                 try {
                     const files = List_files(this.state.isSelected).filter((name) => !name.includes("read"));
-                    this.setState({
-                        infoFiles: files,
-                        isLoading: false
-                    })
+                    if (files.length > 0) {
+                        this.setState({
+                            infoFiles: files,
+                            isLoading: false
+                        });
+                    } else {
+                        this.setState({
+                            isLoading: false
+                        }, () => alert("No hay archivo(s) a procesar"));
+                    }
                 } catch (error) {
                     alert("A ocurrido un error, por favor intente de nuevo!" + error);
                     this.setState({
                         isLoading: false
-                    })
+                    });
                 }
             })
         }
@@ -143,7 +149,7 @@ class Section extends Component {
             if (alltemp.length === this.state.infoFiles.length && alltemp.length !== 0) {
                 this.setState({
                     allStringXml: alltemp.slice(),
-                })
+                });
             }
 
         })

@@ -2,11 +2,17 @@
 import React, { Fragment } from 'react';
 
 
-function AlertSuccess(props) {
+function Alert(props) {
     return (
         <Fragment>
             <div className='alert-container'>
                 <div className="alert-content">
+                    {
+                        props.info.type === "error" ?
+                            <img src="img\error.png" alt="error" />
+                            :
+                            <img src="img\success.png" alt="success" />
+                    }
                     <span>{props.info.content}</span>
                 </div>
             </div>
@@ -30,4 +36,4 @@ function AlertSuccess(props) {
         </Fragment>
     )
 }
-export default AlertSuccess;
+export default Alert;

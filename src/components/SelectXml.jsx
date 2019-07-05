@@ -10,7 +10,6 @@ import { xmlBanco } from '../utils/globals_routes';
 function SelectXmls(props) {
     const selectOption = [
         { title: "CONSUMO BANCO", value: xmlBanco },
-        { title: "CONSUMO SUFI", value: "CONSUMO_SUFI" }
     ]
     return (
         <Fragment>
