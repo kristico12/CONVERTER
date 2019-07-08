@@ -67,8 +67,8 @@ function Generate_Array_Xls(model, data, title) {
                 let info;
                 info = item[key];
                 let getData;
-                if (info.hasOwnProperty('_attributes')) {
-                    getData = Object.assign({}, info._attributes);
+                if (info.hasOwnProperty('_attributes') || info.hasOwnProperty('_text')) {
+                    getData = Object.assign({}, info._attributes || info._text);
                     const list_variables_model = Object.keys(model[key]);
                     list_variables_model.forEach(variable_model => {
                         array_info_excel.push({ title: variable_model, value: getData[variable_model] })
@@ -77,7 +77,7 @@ function Generate_Array_Xls(model, data, title) {
                     const key_getData = Object.keys(info);
                     const list_variables_model = Object.keys(model[key]);
                     key_getData.forEach(val => {
-                        getData = Object.assign({}, info[val]._attributes);
+                        getData = Object.assign({}, info[val]._attributes || info[val]._text);
                         list_variables_model.forEach(variable_model => {
                             array_info_excel.push({ title: variable_model, value: getData[variable_model] })
                         })
@@ -88,6 +88,54 @@ function Generate_Array_Xls(model, data, title) {
             }
         })
         // asignacion manual de los reason number, reason text and desicion response
+        try {
+            let desicion = Object.assign({}, item.Decision);
+            if (desicion.hasOwnProperty("0")) desicion = Object.keys(desicion).map(val => desicion[val]);
+            if (Array.isArray(desicion)) {
+                desicion.forEach(deci => {
+                    // tomamos el desicion result
+                    array_info_excel.push({ title: "DecisionResult", value: deci._attributes.DecisionResult });
+                    // verificamos los reason text and number
+                    let reason = Object.assign({}, deci.Reason);
+                    if (reason.hasOwnProperty("0")) reason = Object.keys(reason).map(val => reason[val]);
+                    // se verifica si hay varias razones
+                    if (Array.isArray(reason)) {
+                        reason.forEach(reci => {
+                            // tomamos el reason order number
+                            array_info_excel.push({ title: "RankOrderNumber", value: reci._attributes.RankOrderNumber });
+                            // tomamos el reason text
+                            array_info_excel.push({ title: "ReasonText", value: reci.ReasonText._text });
+                        })
+                    } else {
+                        // tomamos el reason order number
+                        array_info_excel.push({ title: "RankOrderNumber", value: reason._attributes.RankOrderNumber });
+                        // tomamos el reason text
+                        array_info_excel.push({ title: "ReasonText", value: reason.ReasonText._text });
+                    }
+                })
+            } else {
+                // tomamos el desicion result
+                array_info_excel.push({ title: "DecisionResult", value: desicion._attributes.DecisionResult });
+                // verificamos los reason text and number
+                const reason = Object.assign({}, desicion.Reason);
+                // se verifica si hay varias razones
+                if (Array.isArray(reason)) {
+                    reason.forEach(reci => {
+                        // tomamos el reason order number
+                        array_info_excel.push({ title: "RankOrderNumber", value: reci._attributes.RankOrderNumber });
+                        // tomamos el reason text
+                        array_info_excel.push({ title: "ReasonText", value: reci.ReasonText._text });
+                    })
+                } else {
+                    // tomamos el reason order number
+                    array_info_excel.push({ title: "RankOrderNumber", value: reason._attributes.RankOrderNumber });
+                    // tomamos el reason text
+                    array_info_excel.push({ title: "ReasonText", value: reason.ReasonText._text });
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
         const result = Generate_Excel(array_info_excel, title);
         if (!result) {
             r = false;
