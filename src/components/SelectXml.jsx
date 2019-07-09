@@ -106,16 +106,15 @@ function SelectXmls(props) {
                     border-radius: 10px;
                     border: 1px solid #aaa;
                     font-family: sans-serif;
-                    color:  black;
+                    color: white;
                     font-size: 20px;
-                    background-color: #e6ecf0;
+                    background-color: #00448C;
                     padding: 5px 10px 5px 10px;
                     text-decoration: none;
                 }
-                
                 .button-search:hover {
                     background-color: #00448C;
-                    text-decoration: none;
+                    opacity: 0.9;
                     color: white;
                 }
             `}</style>
