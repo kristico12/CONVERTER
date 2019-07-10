@@ -2,6 +2,7 @@
 import React, { Fragment, Component } from 'react';
 const fs = window.require('fs');
 import convertObject from 'xml-js';
+const { dialog } = window.require('electron').remote;
 
 // components
 import SelectXml from './SelectXml.jsx';
@@ -107,7 +108,7 @@ class Section extends Component {
             this.setState({
                 isLoading: this.state.isLoading && false
             }, () => {
-                window.setTimeout(() => alert("Por favor Escoja una opcion"), 50);
+                window.setTimeout(() => dialog.showMessageBox(null, { type: 'info', title: 'Info', message: 'Por favor Escoja una opcion' }), 50);
             })
         } else {
             this.setState({ isLoading: true }, () => {
@@ -121,10 +122,12 @@ class Section extends Component {
                     } else {
                         this.setState({
                             isLoading: false
-                        }, () => alert("No hay archivo(s) a procesar"));
+                        }, () =>
+                                dialog.showMessageBox(null, { type: 'info', title: 'Info', message: 'No hay archivo(s) a procesar' })
+                        );
                     }
                 } catch (error) {
-                    alert("A ocurrido un error, por favor intente de nuevo!" + error);
+                    dialog.showErrorBox('Error', `A ocurrido un error por favor intenta de nuevo: ${error}`);
                     this.setState({
                         isLoading: false
                     });
@@ -142,7 +145,7 @@ class Section extends Component {
                     const data = fs.readFileSync(`${this.state.isSelected}/${this.state.infoFiles[i]}`, { encoding: 'utf-8' });
                     alltemp.push(data);
                 } catch (error) {
-                    alert(`A ocurrido un error por favor intenta de nuevo: ${error}`);
+                    dialog.showErrorBox('Error', `A ocurrido un error por favor intenta de nuevo: ${error}`);
                     this.setState({ isLoadingTow: false });
                 }
             }
