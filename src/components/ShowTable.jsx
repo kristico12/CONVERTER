@@ -9,6 +9,7 @@ function ShowTable(props) {
                     <thead>
                         <tr>
                             <th>Archivos</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -16,6 +17,7 @@ function ShowTable(props) {
                             props.infoFiles.map(value => (
                                 <tr key={value}>
                                     <td>{value}</td>
+                                    <td>Eliminar</td>
                                 </tr>
                             ))
                         }
@@ -23,35 +25,47 @@ function ShowTable(props) {
                 </table>
             </div>
             <style jsx>{`
-                .container, .table-container, .table-container tbody {
-                    max-width: 794px;
-                    max-height: 300px;
-                    height: 100%;
-                    width: 100%;
+                .container {
+                    display: flex;
+                    justify-content: center;
+                    padding: 1em;
                 }
                 .table-container {
                     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
                     border-collapse: collapse;
+                    background-color: #fff;
+                    max-width: 794px;
+                    max-height: 300px;
+                    width: 100%;
+                }
+                .table-container thead, .table-container tbody {
+                    display: block;
+                    max-width: 794px;
+                    width: 100%;
                 }
                 .table-container tbody {
-                    display: block;
+                    max-height: 261px;
+                    height: 261px;
                     overflow: auto;
+                    border-top: 0.8px solid rgba(0, 0, 0, 0.12);
                 }
                 .table-container tbody td {
-                    width: 794px;
-                    text-align: center;
+                    transition: all 0.3s ease;
+                    color: #212121;
                 }
                 .table-container td, .table-container th {
-                    border: 1px solid #ddd;
+                    width: 100%;
+                    text-align: center;
                     padding: 8px;
+                    transition: all 0.3s ease;
                 }
-                .table-container tr:hover {background-color: #ddd;}
-                .table-container tr:nth-child(even){background-color: #f2f2f2;}
+                .table-container tr:hover {background-color: rgba(0, 0, 0, 0.12);}
                 .table-container th {
-                    background-color: #00448C;
-                    color: white;
+                    background-color: #fff;
+                    color: #757575;
                     font-size: 20px;
                     text-transform: uppercase;
+                    transition: all 0.3s ease;
                 }
             `}</style>
         </Fragment>
