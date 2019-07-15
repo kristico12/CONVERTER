@@ -14,10 +14,10 @@ function ShowTable(props) {
                     </thead>
                     <tbody>
                         {
-                            props.infoFiles.map(value => (
+                            props.infoFiles.map((value, i) => (
                                 <tr key={value}>
                                     <td>{value}</td>
-                                    <td>Eliminar</td>
+                                    <td className="delete-item" onClick={() => props.delete(value)}><img src="img\delete.png" alt="Eliminar" /></td>
                                 </tr>
                             ))
                         }
@@ -66,6 +66,9 @@ function ShowTable(props) {
                     font-size: 20px;
                     text-transform: uppercase;
                     transition: all 0.3s ease;
+                }
+                .delete-item:hover {
+                    cursor: pointer;
                 }
             `}</style>
         </Fragment>

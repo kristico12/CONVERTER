@@ -171,6 +171,7 @@ class Section extends Component {
                         this.state.infoFiles.length > 0 &&
                         <ShowTable
                             infoFiles={this.state.infoFiles}
+                            delete={(data) => this.setState({ infoFiles: this.state.infoFiles.filter(item => item !== data) })}
                         />
                     }
                     {
