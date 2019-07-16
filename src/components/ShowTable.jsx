@@ -69,6 +69,7 @@ function ShowTable(props) {
                 }
                 .delete-item:hover {
                     cursor: pointer;
+                    background-color: red;
                 }
             `}</style>
         </Fragment>
