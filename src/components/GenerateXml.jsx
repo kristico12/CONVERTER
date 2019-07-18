@@ -13,11 +13,11 @@ function GenerateXml(props) {
                     <div className="container-flex">
                         <button className="button-search" onClick={() => props.generateXsl()}>Generar Excel</button>
                     </div>
-                    <div className="container-flex">
+                    <Fragment>
                         {
-                            props.isLoading && <Loading size={45} />
+                            props.isLoading && <Loading />
                         }
-                    </div>
+                    </Fragment>
                 </div>
                 {
                     props.info.show &&

@@ -1,9 +1,6 @@
 // dependencies
 import React, { Fragment } from 'react';
 
-//components
-import Loading from './loading.jsx';
-
 //utils
 import { xmlBanco } from '../utils/globals_routes';
 
@@ -36,9 +33,6 @@ function SelectXmls(props) {
                 </label>
                 <div className="container-buttton">
                     <button className="button-search" onClick={() => props.search()}>Buscar</button>
-                    {
-                        props.isLoading && <Loading />
-                    }
                 </div>
             </div>
             <style jsx>{`
@@ -53,7 +47,7 @@ function SelectXmls(props) {
                 }
                 .container-buttton {
                     display: flex;
-                    justify-content: ${props.isLoading ? "space-evenly" : "center"};
+                    justify-content: center;
                     align-items: center;
                 }
                 .button-search {

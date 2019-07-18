@@ -18,7 +18,6 @@ class Section extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: false,
             isSelected: "",
             infoFiles: [],
             isLoadingTow: false,
@@ -65,7 +64,6 @@ class Section extends Component {
                         }, () => {
                             window.setTimeout(() => {
                                 this.setState({
-                                    isLoading: false,
                                     isSelected: "",
                                     infoFiles: [],
                                     isLoadingTow: false,
@@ -85,7 +83,6 @@ class Section extends Component {
                         }, () => {
                             window.setTimeout(() => {
                                 this.setState({
-                                    isLoading: false,
                                     isSelected: "",
                                     infoFiles: [],
                                     isLoadingTow: false,
@@ -105,34 +102,20 @@ class Section extends Component {
     }
     search() {
         if (this.state.isSelected.length === 0) {
-            this.setState({
-                isLoading: this.state.isLoading && false
-            }, () => {
-                window.setTimeout(() => dialog.showMessageBox(null, { type: 'info', title: 'Info', message: 'Por favor Escoja una opcion' }), 50);
-            })
+            window.setTimeout(() => dialog.showMessageBox(null, { type: 'info', title: 'Info', message: 'Por favor Escoja una opcion' }), 50);
         } else {
-            this.setState({ isLoading: true }, () => {
-                try {
-                    const files = List_files(this.state.isSelected).filter((name) => !name.includes("read"));
-                    if (files.length > 0) {
-                        this.setState({
-                            infoFiles: files,
-                            isLoading: false
-                        });
-                    } else {
-                        this.setState({
-                            isLoading: false
-                        }, () =>
-                                dialog.showMessageBox(null, { type: 'info', title: 'Info', message: 'No hay archivo(s) a procesar' })
-                        );
-                    }
-                } catch (error) {
-                    dialog.showErrorBox('Error', `A ocurrido un error por favor intenta de nuevo: ${error}`);
+            try {
+                const files = List_files(this.state.isSelected).filter((name) => !name.includes("read"));
+                if (files.length > 0) {
                     this.setState({
-                        isLoading: false
+                        infoFiles: files,
                     });
+                } else {
+                    dialog.showMessageBox(null, { type: 'info', title: 'Info', message: 'No hay archivo(s) a procesar' })
                 }
-            })
+            } catch (error) {
+                dialog.showErrorBox('Error', `A ocurrido un error por favor intenta de nuevo: ${error}`);
+            }
         }
     }
     generateXsl() {
@@ -162,7 +145,6 @@ class Section extends Component {
             <Fragment>
                 <section className="section-container">
                     <SelectXml
-                        isLoading={this.state.isLoading}
                         search={() => this.search()}
                         handleSelect={(value) => this.setState({ isSelected: value })}
                         isSelected={this.state.isSelected}
