@@ -7,30 +7,26 @@ function Alert(props) {
         <Fragment>
             <div className='alert-container'>
                 <div className="alert-content">
-                    {
-                        props.info.type === "error" ?
-                            <img src="img\error.png" alt="error" />
-                            :
-                            <img src="img\success.png" alt="success" />
-                    }
-                    <span>{props.info.content}</span>
+                    {props.info.content}
                 </div>
             </div>
             <style jsx>{`
                 .alert-container{
                     display: flex;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: flex-start;
                 }
                 .alert-content {
                     box-shadow: 7px 2px 16px 0px rgba(194,180,194,1);
-                    background-color: ${props.info.type === "error" ? "#ff4040" : "#72dc72"};
-                    border-radius: 1em;
+                    background-color: ${props.info.type === "error" ? "#e27c79" : "#d9edf7"};
+                    border: 1px solid transparent;
+                    border-color: ${props.info.type === "error" ? "#dd6864" : "#bce8f1"};
+                    color: ${props.info.type === "error" ? "#9f2723" : "#31708f"};
                     width: 98%;
-                    height: 50%;
+                    height: 70%;
                     display: flex;
                     align-items: center;
-                    justify-content: space-evenly;
+                    justify-content: center;
                 }
             `}</style>
         </Fragment>

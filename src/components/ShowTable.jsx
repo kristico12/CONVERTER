@@ -9,7 +9,7 @@ function ShowTable(props) {
                     <thead>
                         <tr>
                             <th>Archivos</th>
-                            <th>Acciones</th>
+                            <th>Acc</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,7 +69,7 @@ function ShowTable(props) {
                 }
                 .delete-item:hover {
                     cursor: pointer;
-                    background-color: red;
+                    background-color: #7dd1e3;
                 }
             `}</style>
         </Fragment>

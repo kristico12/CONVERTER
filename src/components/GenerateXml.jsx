@@ -15,7 +15,7 @@ function GenerateXml(props) {
                     </div>
                     <Fragment>
                         {
-                            !props.isLoading && <Loading />
+                            props.isLoading && <Loading />
                         }
                     </Fragment>
                 </div>
