@@ -6,9 +6,8 @@ const fs = window.require('fs');
 // routes
 import { xsl } from './globals_routes';
 
-
 function Generate_Excel(array_data, title) {
-    let r = true;
+    let r = { bool: true };
     const routeName = `${xsl}/${title}.xlsx`;
     const isExist = () => {
         try {
@@ -25,15 +24,19 @@ function Generate_Excel(array_data, title) {
             const sh = wb.Sheets[wb.SheetNames[0]];
             // obtenemos el rango
             const range = XLSX.utils.decode_range(sh["!ref"]);
-            const ultimate_column = Object.assign({}, range).e.c + 2;
+            const ultimate_row = Object.assign({}, range).e.r + 2;
+            const insert = {};
+            array_data.forEach((item) => {
+                insert[item.title] = item.value;
+            })
             // procederemos a insertar nuevos valores
-            const ws = XLSX.utils.sheet_add_json(sh, array_data, { skipHeader: true, origin: { r: 0, c: ultimate_column } });
+            const ws = XLSX.utils.sheet_add_json(sh, [insert], { origin: { r: ultimate_row, c: 0 } });
             wb.Sheets[wb.SheetNames[0]] = ws;
             const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
             // se guarda el archivo
             fs.writeFileSync(routeName, new Buffer(wOut));
         } catch (error) {
-            r = false;
+            r = { bool: false, error };
         }
     } else {
         // se crea el archivo
@@ -44,21 +47,25 @@ function Generate_Excel(array_data, title) {
         }
         wb.SheetNames.push("Bancolombia");
         // se inserta en el archivo creado
-        const ws = XLSX.utils.json_to_sheet(array_data, { skipHeader: true });
-        wb.Sheets["Bancolombia"] = ws;
+        const insert = {};
+        array_data.forEach((item) => {
+            insert[item.title] = item.value;
+        })
+        const ws = XLSX.utils.json_to_sheet([insert]);
+        wb.Sheets[wb.SheetNames[0]] = ws;
         const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         // se guarda el archivo
         try {
             fs.writeFileSync(routeName, new Buffer(wOut));
-        } catch (e) {
-            r = false;
+        } catch (error) {
+            r = { bool: false, error };
         }
     }
     return r;
 }
 
 function Generate_Array_Xls(model, data, title) {
-    let r = true;
+    let r = { bool: true };
     const key_variable = Object.keys(model);
     data.forEach(item => {
         const array_info_excel = [];
@@ -137,8 +144,8 @@ function Generate_Array_Xls(model, data, title) {
             console.log(error)
         }
         const result = Generate_Excel(array_info_excel, title);
-        if (!result) {
-            r = false;
+        if (!result.bool) {
+            r = result
         }
     })
     return r;

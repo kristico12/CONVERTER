@@ -48,7 +48,7 @@ class Section extends Component {
                 // generate data
                 const isSucesfull = Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
                 window.setTimeout(() => {
-                    if (isSucesfull) {
+                    if (isSucesfull.bool) {
                         this.state.infoFiles.slice().forEach((value) => {
                             Rename_files(
                                 `${this.state.isSelected}/${value}`,
@@ -79,7 +79,7 @@ class Section extends Component {
                             isLoadingTow: false,
                             info: {
                                 show: true,
-                                content: "A ocurrido un error por favor intente de nuevo",
+                                content: `A ocurrido un error por favor intente de nuevo: ${isSucesfull.error}`,
                                 type: "error"
                             }
                         }, () => {
