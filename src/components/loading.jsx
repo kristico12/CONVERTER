@@ -1,70 +1,46 @@
 // Dependencies
 import React, { Fragment } from 'react';
 
-function Loading(props) {
+function Loading() {
     return (
         <Fragment>
-            <div className="loader">
-                <svg className="circular" viewBox="25 25 50 50">
-                    <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10" />
-                </svg>
+            <div className="wrapper">
+                <div className="blue ball"></div>
+                <div className="yellow ball"></div>
+                <div className="red ball"></div>
             </div>
             <style jsx>{`
-                .loader {
-                    width: ${props.size}px;
+               .wrapper {
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
                 }
-                .loader:before {
-                    content: '';
-                    display: block;
+                .ball {
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 11px;                
+                    animation: 1.3s bounce ease infinite;
                 }
-                  
-                .circular {
-                    animation: rotate 2s linear infinite;
-                    height: 100%;
-                    transform-origin: center center;
-                    width: 100%;
+                .blue {
+                    background-color: #00448C;
+                    animation-delay: .2s;
                 }
-                  
-                .path {
-                    stroke-dasharray: 1, 200;
-                    stroke-dashoffset: 0;
-                    animation: dash 1s ease-in-out infinite, color 1s ease-in-out infinite;
-                    stroke-linecap: round;
-                }                  
-                @keyframes rotate {
-                    100% {
-                        transform: rotate(360deg);
-                    }
+                .red {
+                    background-color: #eb1c2d;
+                    animation-delay: .6s;
                 }
-                @keyframes dash {
-                    0% {
-                        stroke-dasharray: 30, 200;
-                    }
+                .yellow {
+                    background-color: #ffc902;
+                    animation-delay: .4s;
+                }
+                @keyframes bounce {  
                     50% {
-                        stroke-dasharray: 89, 200;
-                    }
-                    100% {
-                        stroke-dasharray: 89, 200;
+                        transform: translateY(25px);
                     }
                 }
-                @keyframes color {
-                    0% {
-                        stroke: #00448C;
-                    }
-                    50% {
-                        stroke: #00448C;
-                    }
-                    100% {
-                        stroke: #00448C;
-                    }
-                }             
             `}</style>
         </Fragment>
     );
-}
-
-Loading.defaultProps = {
-    size: 30
 }
 
 export default Loading;
