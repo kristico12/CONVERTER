@@ -20,7 +20,7 @@ function GenerateXml(props) {
                     </Fragment>
                 </div>
                 {
-                    !props.info.show &&
+                    props.info.show &&
                     <Alert
                         info={props.info}
                     />

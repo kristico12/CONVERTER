@@ -16,50 +16,40 @@ function Generate_Excel(array_data, title) {
             return false;
         }
     }
-    if (isExist()) {
-        try {
-            // se lee el archivo
-            const file = fs.readFileSync(routeName);
-            const wb = XLSX.read(file, { type: "buffer" });
-            const sh = wb.Sheets[wb.SheetNames[0]];
-            // obtenemos el rango
-            const range = XLSX.utils.decode_range(sh["!ref"]);
-            const ultimate_row = Object.assign({}, range).e.r + 2;
-            const insert = {};
-            array_data.forEach((item) => {
-                insert[item.title] = item.value;
-            })
-            // procederemos a insertar nuevos valores
-            const ws = XLSX.utils.sheet_add_json(sh, [insert], { origin: { r: ultimate_row, c: 0 } });
-            wb.Sheets[wb.SheetNames[0]] = ws;
-            const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-            // se guarda el archivo
-            fs.writeFileSync(routeName, new Buffer(wOut));
-        } catch (error) {
-            r = { bool: false, error };
-        }
-    } else {
-        // se crea el archivo
-        const wb = XLSX.utils.book_new();
-        wb.Props = {
-            Title: title,
-            Company: "Bancolombia",
-        }
-        wb.SheetNames.push("Bancolombia");
-        // se inserta en el archivo creado
+    const isExistlocal = isExist();
+    try {
+        let sh, range, ultimate_row, ws;
         const insert = {};
-        array_data.forEach((item) => {
-            insert[item.title] = item.value;
+        // se lee el archivo || se crea el archivo
+        let wb = isExistlocal ?
+            XLSX.read(fs.readFileSync(routeName), { type: "buffer" })
+            : XLSX.utils.book_new();
+        if (isExistlocal) {
+            sh = wb.Sheets[wb.SheetNames[0]];
+            // obtenemos el rango
+            range = XLSX.utils.decode_range(sh["!ref"]);
+            ultimate_row = Object.assign({}, range).e.r + 2;
+        } else {
+            wb.Props = {
+                Title: title,
+                Company: "Bancolombia",
+            }
+            wb.SheetNames.push("Bancolombia");
+        }
+        // se condiciona la informacion
+        array_data.forEach((item, i) => {
+            insert[insert.hasOwnProperty(item.title) ? `${item.title}-${i}` : item.title] = item.value;
         })
-        const ws = XLSX.utils.json_to_sheet([insert]);
+        // se procede a insertar los valores
+        ws = isExistlocal ?
+            XLSX.utils.sheet_add_json(sh, [insert], { origin: { r: ultimate_row, c: 0 } })
+            : XLSX.utils.json_to_sheet([insert]);
         wb.Sheets[wb.SheetNames[0]] = ws;
         const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         // se guarda el archivo
-        try {
-            fs.writeFileSync(routeName, new Buffer(wOut));
-        } catch (error) {
-            r = { bool: false, error };
-        }
+        fs.writeFileSync(routeName, new Buffer(wOut));
+    } catch (error) {
+        r = { bool: false, error };
     }
     return r;
 }
