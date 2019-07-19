@@ -14,7 +14,6 @@ function Alert(props) {
                 .alert-container{
                     display: flex;
                     align-items: center;
-                    justify-content: flex-start;
                 }
                 .alert-content {
                     box-shadow: 7px 2px 16px 0px rgba(194,180,194,1);
@@ -27,6 +26,7 @@ function Alert(props) {
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    word-break: break-word;
                 }
             `}</style>
         </Fragment>
