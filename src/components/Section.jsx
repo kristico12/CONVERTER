@@ -70,7 +70,7 @@ class Section extends Component {
                                     allStringXml: [],
                                     info: {},
                                 });
-                            }, 3000);
+                            }, 3500);
                         });
                     } else {
                         this.setState({
@@ -89,7 +89,7 @@ class Section extends Component {
                                     allStringXml: [],
                                     info: {},
                                 });
-                            }, 5000);
+                            }, 8500);
                         });
                     }
                 }, 3000);

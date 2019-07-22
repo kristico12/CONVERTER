@@ -11,7 +11,11 @@ function GenerateXml(props) {
             <div className="container">
                 <div className="container-buttton">
                     <div className="container-flex">
-                        <button className="button-search" onClick={() => props.generateXsl()}>Generar Excel</button>
+                        <button
+                            className="button-search"
+                            onClick={() => props.generateXsl()}
+                            disabled={props.isLoading || props.info.show}
+                        >Generar Excel</button>
                     </div>
                     <Fragment>
                         {
@@ -57,6 +61,10 @@ function GenerateXml(props) {
                     opacity: 0.9;
                     color: white;
                 }
+                .button-search:disabled {
+                    background-color: #cccccc;
+                    color: #666666;
+                } 
             `}</style>
         </Fragment>
     );
