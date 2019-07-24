@@ -59,6 +59,11 @@ function Generate_Array_Xls(model, data, title) {
     const key_variable = Object.keys(model);
     data.forEach(item => {
         const array_info_excel = [];
+        // asignacion manual omdm
+        const cda = item.CDA_ENTRADA;
+        if (cda.hasOwnProperty('_attributes')) {
+            array_info_excel.push({ title: 'NUMERO_DE_SOLICITUD', value: cda._attributes.NUMERO_DE_SOLICITUD })
+        }
         key_variable.forEach(key => {
             try {
                 let info;
