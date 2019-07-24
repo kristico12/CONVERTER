@@ -77,7 +77,7 @@ class Section extends Component {
                             isLoadingTow: false,
                             info: {
                                 show: true,
-                                content: `A ocurrido un error por favor intente de nuevo: ${isSucesfull.error}`,
+                                content: `${isSucesfull.error}`,
                                 type: "error"
                             }
                         }, () => {

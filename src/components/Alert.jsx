@@ -22,11 +22,12 @@ function Alert(props) {
                     border-color: ${props.info.type === "error" ? "#dd6864" : "#bce8f1"};
                     color: ${props.info.type === "error" ? "#9f2723" : "#31708f"};
                     width: 98%;
-                    height: 70%;
+                    height: 80%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     word-break: break-word;
+                    padding: ${props.info.type === "error" ? "5px" : "none"}
                 }
             `}</style>
         </Fragment>
