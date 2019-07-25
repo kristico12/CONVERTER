@@ -19,7 +19,7 @@ function Generate_Excel(array_data, title) {
     const isExistlocal = isExist();
     try {
         let sh, shce, shci, range, rangece, rangeci, ultimate_row, ultimate_row_ce, ultimate_row_ci,
-            wsb, wsci, wsce;
+            wsb, wsci, wsce, om;
         const insert = {}, insertCi = {}, insertCe = {};
         // se lee el archivo || se crea el archivo
         let wb = isExistlocal ?
@@ -53,12 +53,12 @@ function Generate_Excel(array_data, title) {
             insert[insert.hasOwnProperty(item.title) ? `${item.title}-${i}` : item.title] = item.value;
         })
         // se condiciona la informacion de la hoja CE
-        const ce = array_data.filter(item => item.book === "CENTRAL_EXTERNA");
+        const ce = array_data.filter(item => item.book === "CENTRAL_EXTERNA" || item.title === "NUMERO_DE_SOLICITUD");
         ce.forEach((item, i) => {
             insertCe[insertCe.hasOwnProperty(item.title) ? `${item.title}-${i}` : item.title] = item.value;
         })
         // se condiciona la informacion de la hoja CE
-        const ci = array_data.filter(item => item.book === "CENTRAL_INTERNA");
+        const ci = array_data.filter(item => item.book === "CENTRAL_INTERNA" || item.title === "NUMERO_DE_SOLICITUD");
         ci.forEach((item, i) => {
             insertCi[insertCi.hasOwnProperty(item.title) ? `${item.title}-${i}` : item.title] = item.value;
         })
