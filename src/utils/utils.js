@@ -18,33 +18,66 @@ function Generate_Excel(array_data, title) {
     }
     const isExistlocal = isExist();
     try {
-        let sh, range, ultimate_row, ws;
-        const insert = {};
+        let sh, shce, shci, range, rangece, rangeci, ultimate_row, ultimate_row_ce, ultimate_row_ci,
+            wsb, wsci, wsce;
+        const insert = {}, insertCi = {}, insertCe = {};
         // se lee el archivo || se crea el archivo
         let wb = isExistlocal ?
             XLSX.read(fs.readFileSync(routeName), { type: "buffer" })
             : XLSX.utils.book_new();
         if (isExistlocal) {
             sh = wb.Sheets[wb.SheetNames[0]];
+            shce = wb.Sheets[wb.SheetNames[1]];
+            shci = wb.Sheets[wb.SheetNames[2]];
+
             // obtenemos el rango
             range = XLSX.utils.decode_range(sh["!ref"]);
-            ultimate_row = Object.assign({}, range).e.r + 2;
+            rangece = XLSX.utils.decode_range(shce["!ref"]);
+            rangeci = XLSX.utils.decode_range(shci["!ref"]);
+
+            ultimate_row = Object.assign({}, range).e.r + 1;
+            ultimate_row_ce = Object.assign({}, rangece).e.r + 2;
+            ultimate_row_ci = Object.assign({}, rangeci).e.r + 2;
         } else {
             wb.Props = {
                 Title: title,
                 Company: "Bancolombia",
             }
             wb.SheetNames.push("Bancolombia");
+            wb.SheetNames.push("CUN-CE");
+            wb.SheetNames.push("CUN-CI");
         }
-        // se condiciona la informacion
-        array_data.forEach((item, i) => {
+        // se condiciona la informacion de la hoja principal
+        const print = array_data.filter(item => item.book === "PRINCIPAL");
+        print.forEach((item, i) => {
             insert[insert.hasOwnProperty(item.title) ? `${item.title}-${i}` : item.title] = item.value;
         })
-        // se procede a insertar los valores
-        ws = isExistlocal ?
-            XLSX.utils.sheet_add_json(sh, [insert], { origin: { r: ultimate_row, c: 0 } })
+        // se condiciona la informacion de la hoja CE
+        const ce = array_data.filter(item => item.book === "CENTRAL_EXTERNA");
+        ce.forEach((item, i) => {
+            insertCe[insertCe.hasOwnProperty(item.title) ? `${item.title}-${i}` : item.title] = item.value;
+        })
+        // se condiciona la informacion de la hoja CE
+        const ci = array_data.filter(item => item.book === "CENTRAL_INTERNA");
+        ci.forEach((item, i) => {
+            insertCi[insertCi.hasOwnProperty(item.title) ? `${item.title}-${i}` : item.title] = item.value;
+        })
+        // se procede a insertar los valores del principal
+        wsb = isExistlocal ?
+            XLSX.utils.sheet_add_json(sh, [insert], { origin: { r: ultimate_row, c: 0 }, skipHeader: true })
             : XLSX.utils.json_to_sheet([insert]);
-        wb.Sheets[wb.SheetNames[0]] = ws;
+        // se procede a insertar los valores de CE
+        wsce = isExistlocal ?
+            XLSX.utils.sheet_add_json(shce, [insertCe], { origin: { r: ultimate_row_ce, c: 0 } })
+            : XLSX.utils.json_to_sheet([insertCe]);
+        // se procede a insertar los valores de CI
+        wsci = isExistlocal ?
+            XLSX.utils.sheet_add_json(shci, [insertCi], { origin: { r: ultimate_row_ci, c: 0 } })
+            : XLSX.utils.json_to_sheet([insertCi]);
+        // se procede a registrar los valores
+        wb.Sheets[wb.SheetNames[0]] = wsb;
+        wb.Sheets[wb.SheetNames[1]] = wsce;
+        wb.Sheets[wb.SheetNames[2]] = wsci;
         const wOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         // se guarda el archivo
         fs.writeFileSync(routeName, new Buffer(wOut));
@@ -149,7 +182,6 @@ function Generate_Array_Xls(model, data, title, structure) {
         } catch (error) {
             console.log(error)
         }
-        console.log(array_info_excel);
         const result = Generate_Excel(array_info_excel, title);
         if (!result.bool) {
             r = result
