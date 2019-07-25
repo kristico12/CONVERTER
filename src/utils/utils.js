@@ -54,26 +54,35 @@ function Generate_Excel(array_data, title) {
     return r;
 }
 
-function Generate_Array_Xls(model, data, title) {
+function Generate_Array_Xls(model, data, title, structure) {
     let r = { bool: true };
     const key_variable = Object.keys(model);
     data.forEach(item => {
         const array_info_excel = [];
         // asignacion manual omdm
+        let book = "PRINCIPAL";
         const cda = item.CDA_ENTRADA;
         if (cda.hasOwnProperty('_attributes')) {
-            array_info_excel.push({ title: 'NUMERO_DE_SOLICITUD', value: cda._attributes.NUMERO_DE_SOLICITUD })
+            array_info_excel.push({ title: 'NUMERO_DE_SOLICITUD', value: cda._attributes.NUMERO_DE_SOLICITUD, book })
         }
         key_variable.forEach(key => {
             try {
                 let info;
                 info = item[key];
                 let getData;
+                // verificamos si pertenece a CE o CI
+                if (structure[key].find(item => item === "CENTRAL_EXTERNA") !== undefined) {
+                    book = "CENTRAL_EXTERNA";
+                } else if (structure[key].find(item => item === "CENTRAL_INTERNA") !== undefined) {
+                    book = "CENTRAL_INTERNA";
+                } else {
+                    book = "PRINCIPAL";
+                }
                 if (info.hasOwnProperty('_attributes') || info.hasOwnProperty('_text')) {
                     getData = Object.assign({}, info._attributes || info._text);
                     const list_variables_model = Object.keys(model[key]);
                     list_variables_model.forEach(variable_model => {
-                        array_info_excel.push({ title: variable_model, value: getData[variable_model] })
+                        array_info_excel.push({ title: variable_model, value: getData[variable_model], book })
                     })
                 } else {
                     const key_getData = Object.keys(info);
@@ -81,7 +90,7 @@ function Generate_Array_Xls(model, data, title) {
                     key_getData.forEach(val => {
                         getData = Object.assign({}, info[val]._attributes || info[val]._text);
                         list_variables_model.forEach(variable_model => {
-                            array_info_excel.push({ title: variable_model, value: getData[variable_model] })
+                            array_info_excel.push({ title: variable_model, value: getData[variable_model], book })
                         })
                     })
                 }
@@ -89,6 +98,8 @@ function Generate_Array_Xls(model, data, title) {
                 console.log(e);
             }
         })
+        // vovlemos a iniciarlo en principal
+        book = "PRINCIPAL";
         // asignacion manual de los reason number, reason text and desicion response
         try {
             let desicion = Object.assign({}, item.Decision);
@@ -96,7 +107,7 @@ function Generate_Array_Xls(model, data, title) {
             if (Array.isArray(desicion)) {
                 desicion.forEach(deci => {
                     // tomamos el desicion result
-                    array_info_excel.push({ title: "DecisionResult", value: deci._attributes.DecisionResult });
+                    array_info_excel.push({ title: "DecisionResult", value: deci._attributes.DecisionResult, book });
                     // verificamos los reason text and number
                     let reason = Object.assign({}, deci.Reason);
                     if (reason.hasOwnProperty("0")) reason = Object.keys(reason).map(val => reason[val]);
@@ -104,40 +115,41 @@ function Generate_Array_Xls(model, data, title) {
                     if (Array.isArray(reason)) {
                         reason.forEach(reci => {
                             // tomamos el reason order number
-                            array_info_excel.push({ title: "RankOrderNumber", value: reci._attributes.RankOrderNumber });
+                            array_info_excel.push({ title: "RankOrderNumber", value: reci._attributes.RankOrderNumber, book });
                             // tomamos el reason text
-                            array_info_excel.push({ title: "ReasonText", value: reci.ReasonText._text });
+                            array_info_excel.push({ title: "ReasonText", value: reci.ReasonText._text, book });
                         })
                     } else {
                         // tomamos el reason order number
-                        array_info_excel.push({ title: "RankOrderNumber", value: reason._attributes.RankOrderNumber });
+                        array_info_excel.push({ title: "RankOrderNumber", value: reason._attributes.RankOrderNumber, book });
                         // tomamos el reason text
-                        array_info_excel.push({ title: "ReasonText", value: reason.ReasonText._text });
+                        array_info_excel.push({ title: "ReasonText", value: reason.ReasonText._text, book });
                     }
                 })
             } else {
                 // tomamos el desicion result
-                array_info_excel.push({ title: "DecisionResult", value: desicion._attributes.DecisionResult });
+                array_info_excel.push({ title: "DecisionResult", value: desicion._attributes.DecisionResult, book });
                 // verificamos los reason text and number
                 const reason = Object.assign({}, desicion.Reason);
                 // se verifica si hay varias razones
                 if (Array.isArray(reason)) {
                     reason.forEach(reci => {
                         // tomamos el reason order number
-                        array_info_excel.push({ title: "RankOrderNumber", value: reci._attributes.RankOrderNumber });
+                        array_info_excel.push({ title: "RankOrderNumber", value: reci._attributes.RankOrderNumber, book });
                         // tomamos el reason text
-                        array_info_excel.push({ title: "ReasonText", value: reci.ReasonText._text });
+                        array_info_excel.push({ title: "ReasonText", value: reci.ReasonText._text, book });
                     })
                 } else {
                     // tomamos el reason order number
-                    array_info_excel.push({ title: "RankOrderNumber", value: reason._attributes.RankOrderNumber });
+                    array_info_excel.push({ title: "RankOrderNumber", value: reason._attributes.RankOrderNumber, book });
                     // tomamos el reason text
-                    array_info_excel.push({ title: "ReasonText", value: reason.ReasonText._text });
+                    array_info_excel.push({ title: "ReasonText", value: reason.ReasonText._text, book });
                 }
             }
         } catch (error) {
             console.log(error)
         }
+        console.log(array_info_excel);
         const result = Generate_Excel(array_info_excel, title);
         if (!result.bool) {
             r = result
@@ -164,7 +176,7 @@ function Generate_Data(model, data, structure, title) {
         })
         array_data.push(dataLevel);
     });
-    return Generate_Array_Xls(model, array_data, title);
+    return Generate_Array_Xls(model, array_data, title, structure);
 }
 
 export {
