@@ -46,7 +46,7 @@ class Section extends Component {
                 }
                 // generate data
                 const isSucesfull = Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
-                /*window.setTimeout(() => {
+                window.setTimeout(() => {
                     if (isSucesfull.bool) {
                         this.state.infoFiles.slice().forEach((value) => {
                             Rename_files(
@@ -92,7 +92,7 @@ class Section extends Component {
                             }, 8500);
                         });
                     }
-                }, 3000);*/
+                }, 3000);
             } else if (this.state.isLoadingTow) {
                 this.setState({
                     isLoadingTow: false,
