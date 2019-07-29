@@ -26,6 +26,7 @@ function Generate_Excel(array_data, title) {
             XLSX.read(fs.readFileSync(routeName), { type: "buffer" })
             : XLSX.utils.book_new();
         if (isExistlocal) {
+            // obtenemos las tres pestañas del excel
             sh = wb.Sheets[wb.SheetNames[0]];
             shce = wb.Sheets[wb.SheetNames[1]];
             shci = wb.Sheets[wb.SheetNames[2]];
@@ -35,14 +36,17 @@ function Generate_Excel(array_data, title) {
             rangece = XLSX.utils.decode_range(shce["!ref"]);
             rangeci = XLSX.utils.decode_range(shci["!ref"]);
 
+            // obtenemos la ultima fila para insertar
             ultimate_row = Object.assign({}, range).e.r + 1;
             ultimate_row_ce = Object.assign({}, rangece).e.r + 2;
             ultimate_row_ci = Object.assign({}, rangeci).e.r + 2;
         } else {
+            // asignamos el nombre del archivo 
             wb.Props = {
                 Title: title,
                 Company: "Bancolombia",
             }
+            // creamos las pestañas del excel
             wb.SheetNames.push("Bancolombia");
             wb.SheetNames.push("CUN-CE");
             wb.SheetNames.push("CUN-CI");
