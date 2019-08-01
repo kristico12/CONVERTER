@@ -28839,7 +28839,7 @@ function Generate_Excel(array_data, title) {
   var isExistlocal = isExist();
 
   try {
-    var sh, shce, shci, range, rangece, rangeci, ultimate_row, ultimate_row_ce, ultimate_row_ci, wsb, wsci, wsce, om;
+    var sh, shce, shci, range, rangece, rangeci, ultimate_row, ultimate_row_ce, ultimate_row_ci, wsb, wsci, wsce;
     var insert = {},
         insertCi = {},
         insertCe = {}; // se lee el archivo || se crea el archivo

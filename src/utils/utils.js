@@ -19,7 +19,7 @@ function Generate_Excel(array_data, title) {
     const isExistlocal = isExist();
     try {
         let sh, shce, shci, range, rangece, rangeci, ultimate_row, ultimate_row_ce, ultimate_row_ci,
-            wsb, wsci, wsce, om;
+            wsb, wsci, wsce;
         const insert = {}, insertCi = {}, insertCe = {};
         // se lee el archivo || se crea el archivo
         let wb = isExistlocal ?
