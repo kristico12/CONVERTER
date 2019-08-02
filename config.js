@@ -6,9 +6,14 @@ const browserWindows = {
     height: 600,
     icon: path.join(__dirname, 'public/img/banco-electron.ico'),
     center: true,
+    resizable: false,
+    fullscreen: false,
+    webPreferences: {
+        nodeIntegration: true
+    }
 
 }
 
 module.exports = {
-    browserWindows
+    browserWindows,
 }

@@ -4,6 +4,7 @@
   "description": "este es el proyecto inicial para desarrollo de aplicaicones de escritorio",
   "main": "index.js",
   "scripts": {
+    "prod-webpack": "webpack --mode production",
     "webpack": "webpack --mode development",
     "start": "electron ."
   },
@@ -11,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
@@ -23,6 +25,8 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "styled-jsx": "^3.2.1"
+    "styled-jsx": "^3.2.1",
+    "xlsx": "^0.14.3",
+    "xml-js": "^1.6.11"
   }
 }
