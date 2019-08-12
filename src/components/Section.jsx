@@ -40,12 +40,12 @@ class Section extends Component {
                 ));
                 let nameModelread, structureModel, titlefile;
                 if (this.state.isSelected.includes('CONSUMO_BANCO')) {
-                    nameModelread = ATTRIBUTES_BANCO_CONSUMO;
-                    structureModel = STRUCTURE_BANCO_CONSUMO;
+                    nameModelread = ATTRIBUTES_BANCO_CONSUMO();
+                    structureModel = STRUCTURE_BANCO_CONSUMO();
                     titlefile = 'CONSUMO_BANCO';
                 } else if (this.state.isSelected.includes('HIPOTECARIO_BANCO')) {
-                    nameModelread = ATTRIBUTES_BANCO_HIPOTECARIO;
-                    structureModel = STRUCTURE_BANCO_HIPOTECARIO;
+                    nameModelread = ATTRIBUTES_BANCO_HIPOTECARIO();
+                    structureModel = STRUCTURE_BANCO_HIPOTECARIO();
                     titlefile = 'HIPOTECARIO_BANCO';
                 }
                 // generate data
