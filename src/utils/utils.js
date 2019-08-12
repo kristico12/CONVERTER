@@ -120,7 +120,7 @@ function Generate_Array_Xls(model, data, title, structure) {
                     const list_variables_model = Object.keys(model[key]);
                     list_variables_model.forEach(variable_model => {
                         array_info_excel.push({
-                            title: variable_model === "Timestamp" ? "FECHA Y HORA" : variable_model,
+                            title: variable_model == "Timestamp" ? "FECHA Y HORA" : variable_model,
                             value: getData[variable_model],
                             book
                         })
