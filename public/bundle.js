@@ -21115,10 +21115,67 @@ else {}
 /*exported XLS, ODS */
 var XLS = XLSX, ODS = XLSX;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(4).Buffer, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(5).Buffer, __webpack_require__(6)))
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// CONCATENATED MODULE: ./src/utils/get_query.js
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function getQuery(query) {
+  var queryArray = query.split('?')[1].split('&');
+  var queryParams = {};
+
+  for (var i = 0; i < queryArray.length; i += 1) {
+    var _queryArray$i$split = queryArray[i].split('='),
+        _queryArray$i$split2 = _slicedToArray(_queryArray$i$split, 2),
+        key = _queryArray$i$split2[0],
+        val = _queryArray$i$split2[1];
+
+    queryParams[key] = val || true;
+  }
+
+  return queryParams;
+}
+
+/* harmony default export */ var get_query = (getQuery);
+// CONCATENATED MODULE: ./src/utils/globals_routes.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return xsl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return xmlBanco; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return modelBanco; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return structureBanco; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return xmlBancoHipotecario; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return modelBancoHipotecario; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return structureBancoHipotecario; });
+// globals routes
+var path = __webpack_require__(57); //utils
+
+
+ //Xsl
+
+var xsl = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Excel"); //consumo banco
+
+var xmlBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Xml/CONSUMO_BANCO");
+var modelBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
+var structureBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model"); // hipotecario banco
+
+var xmlBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Xml/HIPOTECARIO_BANCO");
+var modelBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
+var structureBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 var g;
@@ -21144,7 +21201,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22938,10 +22995,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -23131,7 +23188,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23266,56 +23323,6 @@ Duplex.prototype._destroy = function (err, cb) {
 
   pna.nextTick(cb, err);
 };
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// CONCATENATED MODULE: ./src/utils/get_query.js
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function getQuery(query) {
-  var queryArray = query.split('?')[1].split('&');
-  var queryParams = {};
-
-  for (var i = 0; i < queryArray.length; i += 1) {
-    var _queryArray$i$split = queryArray[i].split('='),
-        _queryArray$i$split2 = _slicedToArray(_queryArray$i$split, 2),
-        key = _queryArray$i$split2[0],
-        val = _queryArray$i$split2[1];
-
-    queryParams[key] = val || true;
-  }
-
-  return queryParams;
-}
-
-/* harmony default export */ var get_query = (getQuery);
-// CONCATENATED MODULE: ./src/utils/globals_routes.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return xmlBanco; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return xsl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return modelBanco; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return structureBanco; });
-// globals routes
-var path = __webpack_require__(57); //utils
-
-
- //Xsl
-
-var xsl = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Excel"); //consumo banco
-
-var xmlBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Xml/CONSUMO_BANCO");
-var modelBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
-var structureBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
-
 
 /***/ }),
 /* 8 */
@@ -23458,7 +23465,7 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5).Buffer))
 
 /***/ }),
 /* 10 */
@@ -23510,14 +23517,14 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable node/no-deprecated-api */
-var buffer = __webpack_require__(4)
+var buffer = __webpack_require__(5)
 var Buffer = buffer.Buffer
 
 // alternative to using Object.keys for old browsers
@@ -24043,7 +24050,7 @@ exports = module.exports = __webpack_require__(20);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(14);
-exports.Duplex = __webpack_require__(6);
+exports.Duplex = __webpack_require__(7);
 exports.Transform = __webpack_require__(23);
 exports.PassThrough = __webpack_require__(50);
 
@@ -24153,7 +24160,7 @@ util.inherits(Writable, Stream);
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(6);
+  Duplex = Duplex || __webpack_require__(7);
 
   options = options || {};
 
@@ -24303,7 +24310,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(6);
+  Duplex = Duplex || __webpack_require__(7);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -24740,7 +24747,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(47).setImmediate, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6), __webpack_require__(47).setImmediate, __webpack_require__(4)))
 
 /***/ }),
 /* 15 */
@@ -25681,7 +25688,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(6);
+  Duplex = Duplex || __webpack_require__(7);
 
   options = options || {};
 
@@ -25758,7 +25765,7 @@ function ReadableState(options, stream) {
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(6);
+  Duplex = Duplex || __webpack_require__(7);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -26599,7 +26606,7 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(6)))
 
 /***/ }),
 /* 21 */
@@ -26760,7 +26767,7 @@ module.exports = {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(6);
+var Duplex = __webpack_require__(7);
 
 /*<replacement>*/
 var util = __webpack_require__(9);
@@ -28744,7 +28751,7 @@ if ( true && module.exports && typeof DO_NOT_EXPORT_CODEPAGE === 'undefined') mo
   return cpt;
 }));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5).Buffer))
 
 /***/ }),
 /* 26 */
@@ -28813,7 +28820,7 @@ module.exports = {
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Generate_Data; });
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _globals_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _globals_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 // dependencies
 
 
@@ -28826,7 +28833,7 @@ function Generate_Excel(array_data, title) {
   var r = {
     bool: true
   };
-  var routeName = "".concat(_globals_routes__WEBPACK_IMPORTED_MODULE_1__[/* xsl */ "d"], "/").concat(title, ".xlsx");
+  var routeName = "".concat(_globals_routes__WEBPACK_IMPORTED_MODULE_1__[/* xsl */ "g"], "/").concat(title, ".xlsx");
 
   var isExist = function isExist() {
     try {
@@ -28865,10 +28872,10 @@ function Generate_Excel(array_data, title) {
       // asignamos el nombre del archivo 
       wb.Props = {
         Title: title,
-        Company: "Bancolombia" // creamos las pestañas del excel
+        Company: "BANCOLOMBIA" // creamos las pestañas del excel
 
       };
-      wb.SheetNames.push("Bancolombia");
+      wb.SheetNames.push("APROBACION");
       wb.SheetNames.push("CUN-CE");
       wb.SheetNames.push("CUN-CI");
     } // se condiciona la informacion de la hoja principal
@@ -28978,7 +28985,7 @@ function Generate_Array_Xls(model, data, title, structure) {
           var list_variables_model = Object.keys(model[key]);
           list_variables_model.forEach(function (variable_model) {
             array_info_excel.push({
-              title: variable_model,
+              title: variable_model == "Timestamp" ? "FECHA Y HORA" : variable_model,
               value: getData[variable_model],
               book: book
             });
@@ -29133,7 +29140,7 @@ function Generate_Data(model, data, structure, title) {
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5).Buffer))
 
 /***/ }),
 /* 30 */
@@ -29482,7 +29489,7 @@ exports.unstable_scheduleCallback=function(a,b){var c=-1!==k?k:exports.unstable_
 b=c.previous;b.next=c.previous=a;a.next=c;a.previous=b}return a};exports.unstable_cancelCallback=function(a){var b=a.next;if(null!==b){if(b===a)d=null;else{a===d&&(d=b);var c=a.previous;c.next=b;b.previous=c}a.next=a.previous=null}};exports.unstable_wrapCallback=function(a){var b=g;return function(){var c=g,f=k;g=b;k=exports.unstable_now();try{return a.apply(this,arguments)}finally{g=c,k=f,v()}}};exports.unstable_getCurrentPriorityLevel=function(){return g};
 exports.unstable_shouldYield=function(){return!e&&(null!==d&&d.expirationTime<l||w())};exports.unstable_continueExecution=function(){null!==d&&p()};exports.unstable_pauseExecution=function(){};exports.unstable_getFirstCallbackNode=function(){return d};
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4)))
 
 /***/ }),
 /* 34 */
@@ -30198,7 +30205,7 @@ function invariant(condition, message) {
     throw new Error("StyleSheet: ".concat(message, "."));
   }
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
 
 /***/ }),
 /* 38 */
@@ -31770,7 +31777,7 @@ function invariant(condition, message) {
   }
 })( false ? undefined : exports)
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5).Buffer))
 
 /***/ }),
 /* 39 */
@@ -32340,7 +32347,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4)))
 
 /***/ }),
 /* 48 */
@@ -32533,7 +32540,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4), __webpack_require__(6)))
 
 /***/ }),
 /* 49 */
@@ -32607,7 +32614,7 @@ function config (name) {
   return String(val).toLowerCase() === 'true';
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4)))
 
 /***/ }),
 /* 50 */
@@ -32673,7 +32680,7 @@ module.exports = __webpack_require__(14);
 /* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(6);
+module.exports = __webpack_require__(7);
 
 
 /***/ }),
@@ -32741,7 +32748,7 @@ module.exports = function (json, options) {
   return js2xml(js, options);
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5).Buffer))
 
 /***/ }),
 /* 57 */
@@ -32972,7 +32979,7 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
 
 /***/ }),
 /* 58 */
@@ -41981,7 +41988,7 @@ module.exports = ZStream;
 (9)
 }));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4).Buffer, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5).Buffer, __webpack_require__(4)))
 
 /***/ }),
 /* 59 */
@@ -42049,7 +42056,7 @@ var lib = __webpack_require__(28);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // EXTERNAL MODULE: ./src/utils/globals_routes.js + 1 modules
-var globals_routes = __webpack_require__(7);
+var globals_routes = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./src/components/SelectXml.jsx
 
@@ -42061,7 +42068,10 @@ var globals_routes = __webpack_require__(7);
 function SelectXmls(props) {
   var selectOption = [{
     title: "CONSUMO BANCO",
-    value: globals_routes["c" /* xmlBanco */]
+    value: globals_routes["e" /* xmlBanco */]
+  }, {
+    title: "HIPOTECARIO BANCO",
+    value: globals_routes["f" /* xmlBancoHipotecario */]
   }];
   return react_default.a.createElement(react["Fragment"], null, react_default.a.createElement("div", {
     className: "jsx-3852104875" + " " + "select-container"
@@ -42241,8 +42251,23 @@ var globals_variables_fs = window.require('fs'); // utils
 
  // banco consumo
 
-var ATTRIBUTES_BANCO_CONSUMO = JSON.parse(globals_variables_fs.readFileSync("".concat(globals_routes["a" /* modelBanco */], "/CONSUMO_BANCO.json"), 'utf-8'));
-var STRUCTURE_BANCO_CONSUMO = JSON.parse(globals_variables_fs.readFileSync("".concat(globals_routes["b" /* structureBanco */], "/STRUCTURE_CONSUMO_BANCO.json"), 'utf-8'));
+var globals_variables_ATTRIBUTES_BANCO_CONSUMO = function ATTRIBUTES_BANCO_CONSUMO() {
+  return JSON.parse(globals_variables_fs.readFileSync("".concat(globals_routes["a" /* modelBanco */], "/CONSUMO_BANCO.json"), 'utf-8'));
+};
+
+var globals_variables_STRUCTURE_BANCO_CONSUMO = function STRUCTURE_BANCO_CONSUMO() {
+  return JSON.parse(globals_variables_fs.readFileSync("".concat(globals_routes["c" /* structureBanco */], "/STRUCTURE_CONSUMO_BANCO.json"), 'utf-8'));
+}; // banco hipotecario
+
+
+var globals_variables_ATTRIBUTES_BANCO_HIPOTECARIO = function ATTRIBUTES_BANCO_HIPOTECARIO() {
+  return JSON.parse(globals_variables_fs.readFileSync("".concat(globals_routes["b" /* modelBancoHipotecario */], "/HIPOTECARIO_BANCO.json"), 'utf-8'));
+};
+
+var globals_variables_STRUCTURE_BANCO_HIPOTECARIO = function STRUCTURE_BANCO_HIPOTECARIO() {
+  return JSON.parse(globals_variables_fs.readFileSync("".concat(globals_routes["d" /* structureBancoHipotecario */], "/STRUCTURE_HIPOTECARIO_BANCO.json"), 'utf-8'));
+};
+
 
 // CONCATENATED MODULE: ./src/components/Section.jsx
 
@@ -42328,9 +42353,13 @@ function (_Component) {
           var nameModelread, structureModel, titlefile;
 
           if (this.state.isSelected.includes('CONSUMO_BANCO')) {
-            nameModelread = ATTRIBUTES_BANCO_CONSUMO;
-            structureModel = STRUCTURE_BANCO_CONSUMO;
+            nameModelread = globals_variables_ATTRIBUTES_BANCO_CONSUMO();
+            structureModel = globals_variables_STRUCTURE_BANCO_CONSUMO();
             titlefile = 'CONSUMO_BANCO';
+          } else if (this.state.isSelected.includes('HIPOTECARIO_BANCO')) {
+            nameModelread = globals_variables_ATTRIBUTES_BANCO_HIPOTECARIO();
+            structureModel = globals_variables_STRUCTURE_BANCO_HIPOTECARIO();
+            titlefile = 'HIPOTECARIO_BANCO';
           } // generate data
 
 

@@ -44,10 +44,10 @@ function Generate_Excel(array_data, title) {
             // asignamos el nombre del archivo 
             wb.Props = {
                 Title: title,
-                Company: "Bancolombia",
+                Company: "BANCOLOMBIA",
             }
             // creamos las pestañas del excel
-            wb.SheetNames.push("Bancolombia");
+            wb.SheetNames.push("APROBACION");
             wb.SheetNames.push("CUN-CE");
             wb.SheetNames.push("CUN-CI");
         }
@@ -119,7 +119,11 @@ function Generate_Array_Xls(model, data, title, structure) {
                     getData = Object.assign({}, info._attributes || info._text);
                     const list_variables_model = Object.keys(model[key]);
                     list_variables_model.forEach(variable_model => {
-                        array_info_excel.push({ title: variable_model, value: getData[variable_model], book })
+                        array_info_excel.push({
+                            title: variable_model == "Timestamp" ? "FECHA Y HORA" : variable_model,
+                            value: getData[variable_model],
+                            book
+                        })
                     })
                 } else {
                     const key_getData = Object.keys(info);

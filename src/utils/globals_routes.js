@@ -12,9 +12,17 @@ const xmlBanco = path.join(query(window.location.search).home, "/Documents/XmlTo
 const modelBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
 const structureBanco = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
 
+// hipotecario banco
+const xmlBancoHipotecario = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Xml/HIPOTECARIO_BANCO");
+const modelBancoHipotecario = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
+const structureBancoHipotecario = path.join(query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
+
 export {
-    xmlBanco,
     xsl,
+    xmlBanco,
     modelBanco,
-    structureBanco
+    structureBanco, 
+    xmlBancoHipotecario,
+    modelBancoHipotecario,
+    structureBancoHipotecario
 }
