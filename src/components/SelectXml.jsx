@@ -2,12 +2,13 @@
 import React, { Fragment } from 'react';
 
 //utils
-import { xmlBanco, xmlBancoHipotecario } from '../utils/globals_routes';
+import { xmlBanco, xmlBancoHipotecario, xmlBancoEmpleado } from '../utils/globals_routes';
 
 function SelectXmls(props) {
     const selectOption = [
         { title: "CONSUMO BANCO", value: xmlBanco },
         { title: "HIPOTECARIO BANCO", value: xmlBancoHipotecario },
+        { title: "EMPLEADO BANCO", value: xmlBancoEmpleado },
     ]
     return (
         <Fragment>

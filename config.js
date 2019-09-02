@@ -11,7 +11,6 @@ const browserWindows = {
     webPreferences: {
         nodeIntegration: true
     }
-
 }
 
 module.exports = {

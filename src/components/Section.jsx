@@ -12,7 +12,14 @@ import GenerateXml from './GenerateXml.jsx';
 //utils
 import { List_files, Rename_files } from '../utils/list-files';
 import { Generate_Data } from '../utils/utils';
-import { ATTRIBUTES_BANCO_CONSUMO, STRUCTURE_BANCO_CONSUMO, STRUCTURE_BANCO_HIPOTECARIO, ATTRIBUTES_BANCO_HIPOTECARIO } from '../utils/globals_variables';
+import {
+    ATTRIBUTES_BANCO_CONSUMO,
+    STRUCTURE_BANCO_CONSUMO,
+    STRUCTURE_BANCO_HIPOTECARIO,
+    ATTRIBUTES_BANCO_HIPOTECARIO,
+    STRUCTURE_BANCO_EMPLEADO,
+    ATTRIBUTES_BANCO_EMPLEADO
+} from '../utils/globals_variables';
 
 class Section extends Component {
     constructor(props) {
@@ -47,6 +54,10 @@ class Section extends Component {
                     nameModelread = ATTRIBUTES_BANCO_HIPOTECARIO();
                     structureModel = STRUCTURE_BANCO_HIPOTECARIO();
                     titlefile = 'HIPOTECARIO_BANCO';
+                } else {
+                    nameModelread = ATTRIBUTES_BANCO_EMPLEADO();
+                    structureModel = STRUCTURE_BANCO_EMPLEADO();
+                    titlefile = 'EMPLEADO_BANCO';
                 }
                 // generate data
                 const isSucesfull = Generate_Data(nameModelread, arrayDict, structureModel, titlefile);
