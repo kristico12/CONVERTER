@@ -6,9 +6,9 @@ import { xmlBanco, xmlBancoHipotecario, xmlBancoEmpleado } from '../utils/global
 
 function SelectXmls(props) {
     const selectOption = [
-        { title: "CONSUMO BANCO", value: xmlBanco },
-        { title: "HIPOTECARIO BANCO", value: xmlBancoHipotecario },
-        { title: "EMPLEADO BANCO", value: xmlBancoEmpleado },
+        { title: "CONSUMO", value: xmlBanco },
+        { title: "HIPOTECARIO", value: xmlBancoHipotecario },
+        { title: "CONSUMO EMPLEADOS", value: xmlBancoEmpleado },
     ]
     return (
         <Fragment>
