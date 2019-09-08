@@ -152,19 +152,19 @@ var path = __webpack_require__(57); //utils
 
  //Xsl
 
-var xsl = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Excel"); //consumo banco
+var xsl = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Excel"); //consumo banco
 
-var xmlBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Xml/CONSUMO_BANCO");
-var modelBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
-var structureBanco = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model"); // hipotecario banco
+var xmlBanco = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Xml/CONSUMO_BANCO");
+var modelBanco = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Data Model");
+var structureBanco = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Data Model"); // hipotecario banco
 
-var xmlBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Xml/HIPOTECARIO_BANCO");
-var modelBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
-var structureBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model"); // empleado banco
+var xmlBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Xml/HIPOTECARIO_BANCO");
+var modelBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Data Model");
+var structureBancoHipotecario = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Data Model"); // empleado banco
 
-var xmlBancoEmpleado = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Xml/EMPLEADO_BANCO");
-var modelBancoEmpleado = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
-var structureBancoEmpleado = path.join(get_query(window.location.search).home, "/Documents/XmlToXsl/Data Model");
+var xmlBancoEmpleado = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Xml/EMPLEADO_BANCO");
+var modelBancoEmpleado = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Data Model");
+var structureBancoEmpleado = path.join(get_query(window.location.search).home, "/Documents/CONVERTER/Data Model");
 
 
 /***/ }),
